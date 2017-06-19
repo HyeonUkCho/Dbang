@@ -1,0 +1,1 @@
+json.array! @normalinfos, partial: 'normalinfos/normalinfo', as: :normalinfo

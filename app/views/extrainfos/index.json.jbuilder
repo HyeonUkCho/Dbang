@@ -1,0 +1,1 @@
+json.array! @extrainfos, partial: 'extrainfos/extrainfo', as: :extrainfo

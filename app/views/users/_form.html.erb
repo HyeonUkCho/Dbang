@@ -1,0 +1,77 @@
+<%= render '/home/form_nav' %>
+<style>
+  .LT{
+    padding-top: 10px;
+    float: left;
+    text-align: left;
+  }
+</style>
+<script>
+      function activateModel(){
+          $('#myModal').modal('show')
+      }
+</script>
+<div class ="center">
+<% provide(:title, 'Sign up') %>
+<h1>회원가입</h1>
+
+<div class="row mt-5">
+ 
+  <div class="container" style="padding:30px;">
+    <%= form_for(@user) do |f| %>
+        <center><%= render 'shared/error_messages' %></center>
+        
+        <div class="row mt-2">
+            <div class="col-md-3 LT">  이름    </div>
+            <div class="col-md-8">
+            <%= f.text_field :name, class: 'form-control' , placeholder: "ex) 조현욱" %>  
+            </div>
+        </div>
+        
+        
+        <div class="row mt2">
+            <div class="col-md-3 LT">  핸드폰 번호    </div>
+            <div class="col-md-8">
+            <%= f.text_field :phonenumber, class: 'form-control' , placeholder: "ex) 010-3326-8300" %>  
+            </div>
+        </div>
+        <!-- #%= f.label :name %> -->
+        <!-- #%= f.label :email %> -->
+        <!-- #%= f.label :password %> -->
+        <!-- #%= f.label :password_confirmation, "Confirmation" %> -->
+                
+        <div class="row mt-2">
+            <div class="col-md-3 LT">  이메일    </div>
+            <div class="col-md-8">
+            <%= f.email_field :email, class: 'form-control', placeholder: "ex) aaa@naver.com"  %> 
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-3 LT">  비밀번호    </div>
+            <div class="col-md-8">
+            <%= f.password_field :password, class: 'form-control', placeholder: "6자리 이상 입력해주세요" %> 
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-3 LT">  비밀번호 확인    </div>
+            <div class="col-md-8">
+            <%= f.password_field :password_confirmation, class: 'form-control', placeholder: "동일한 비밀번호 입력"  %>
+            </div>
+        </div>
+        <div class="row mt-5 mx-5">
+          
+            <div class="submit-btn col" style="text-align:right;">
+              <%= f.submit "일반 회원 가입", class: "btn btn-warning"  %>
+            </div>
+            <div class="col"  style="text-align:left; margin-top:20px;">
+              <button class="btn btn-secondary" type="button" style="width: 140px;"onclick="location.href='/'">취소</button>
+            </div>
+         
+        </div>
+    <% end %>
+  </div>
+ 
+</div>
+</div>
+
+

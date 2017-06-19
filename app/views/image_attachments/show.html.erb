@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>House:</strong>
+  <%= @image_attachment.house_id %>
+</p>
+
+<p>
+  <strong>Avatar:</strong>
+  <%= @image_attachment.avatar %>
+</p>
+
+<%= link_to 'Edit', edit_image_attachment_path(@image_attachment) %> |
+<%= link_to 'Back', image_attachments_path %>

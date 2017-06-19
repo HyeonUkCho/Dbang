@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>House:</strong>
+  <%= @normalinfo.house_id %>
+</p>
+
+<p>
+  <strong>Housetype:</strong>
+  <%= @normalinfo.housetype %>
+</p>
+
+<p>
+  <strong>Dealtype:</strong>
+  <%= @normalinfo.dealtype %>
+</p>
+
+<p>
+  <strong>Monthlyfee:</strong>
+  <%= @normalinfo.monthlyfee %>
+</p>
+
+<p>
+  <strong>Tradefee:</strong>
+  <%= @normalinfo.tradefee %>
+</p>
+
+<p>
+  <strong>Totalfloor:</strong>
+  <%= @normalinfo.totalfloor %>
+</p>
+
+<p>
+  <strong>Myfloor:</strong>
+  <%= @normalinfo.myfloor %>
+</p>
+
+<%= link_to 'Edit', edit_normalinfo_path(@normalinfo) %> |
+<%= link_to 'Back', normalinfos_path %>

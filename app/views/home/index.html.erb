@@ -1,0 +1,440 @@
+
+<style>
+    table.imgTable {
+        border-collapse: separate;
+        border-spacing: 20px;
+    }
+    thumb { 
+        display: block;
+        overflow: hidden;
+        background-position: center center;
+        background-repeat: no-repeat;
+        width:300px; 
+        height:300px; 
+        opacity:1.0; 
+        filter: grayscale(0%);
+             
+    }
+    .parent {
+        width: 300px%;
+        margin: 20px;
+        height: 300px;
+        border: 0px;
+        overflow: hidden;
+        position: relative;
+        float: left;
+        display: inline-block;
+        cursor: pointer;
+    }
+    
+    .child {
+        height: 100%;
+        width: 100%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        -webkit-transition: all .5s;
+        -moz-transition: all .5s;
+        -o-transition: all .5s;
+        transition: all .5s;
+    }
+      
+    .parent:hover .child, .parent:focus .child {
+        -ms-transform: scale(1.2);
+        -moz-transform: scale(1.2);
+        -webkit-transform: scale(1.2);
+        -o-transform: scale(1.2);
+        transform: scale(1.2);
+    }
+    
+    .parent:hover .child:before, .parent:focus .child:before {
+        display: block;
+    }
+    
+    .parent:hover a, .parent:focus a {
+        display: block;
+    }
+    
+    .child:before {
+        content: "";
+        display: none;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(180,180,180,0.75);;
+        /*rgba(52,73,94,0.75);*/
+    }
+    #homeTag{
+        color:white;
+        font-size:13px;
+    }
+    .btimage{
+        width: 100%;
+         margin: auto;
+    }
+</style>
+    <%= render '/home/form_nav' %>
+    <header>
+        <div>
+            <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner" role="listbox">
+                
+                <div class="carousel-item active">
+                  <%= image_tag "city2.jpg", :class => "btimage" %>
+                </div>
+
+                <div class="carousel-item">
+                  <%= image_tag "city.jpg", :class => "btimage" %>
+                </div>
+                <div class="carousel-item">
+                  <%= image_tag "city3.jpg", :class => "btimage" %>
+                </div>
+              </div>
+            </div>
+
+            <script>
+            $('.carousel').carousel({
+            	interval: 2000
+            })
+           
+            function activateModel(){
+                $('#myModal').modal('show')
+            }
+            function activateTotalList(){
+                $('#totalModal').modal('show')
+            }
+            function cardclick1(){
+                $('#firstCard').modal('show')
+            }
+            function cardclick2(){
+                $('#secondCard').modal('show')
+            }
+            function cardclick3(){
+                $('#thirdCard').modal('show')
+            }
+            function cardclick4(){
+                $('#forthCard').modal('show')
+            }
+            function cardclick5(){
+                $('#fifthCard').modal('show')
+            }
+            function cardclick6(){
+                $('#sixthCard').modal('show')
+            }
+            function closemodal(){
+                $('.modal fade').modal('hide')
+            }
+            </script>
+    
+        </div>
+    </header>
+    
+    <div class="container">
+        <form action='/map_page' method='GET'>
+            <div class="input-group mt-5 col-md-8 offset-md-2">
+                <input type="text" class="form-control" name="search" placeholder=" 지역명을 입력해보세요. ( ex: 서울특별시, 충무로 )">
+                <span class="input-group-btn">
+                <button class="btn  btn-warning" type="submit" onclick = 'location.href = "/map_page"'>방 검색</button>
+                </span>
+            </div>
+        </form>
+    </div>
+    
+    <div class="container col-md-6 offset-md-3" style="text-align:center;">
+        <div style="margin-top:45px">
+            <h1><b> 테마검색 </b></h1>
+            <h3>다양한 조건으로 검색해보아요</h3>
+        </div>
+    </div>
+    <div class="container mt-4 mx-auto">
+        <div class="imgTable mx-auto" style="width:100%">
+            <div class="row" style="width:100%">
+                <div class="thumb col">
+                        <div class="tbumblist card card-inverse" style="border:0">
+                          <!--<img class="card-img" src="" alt="Card image"> -->
+                          <div class="parent">
+                              <div class="card-img thumb child" onClick='cardclick1(); return false' style="background-image: url('http://blogfiles10.naver.net/data11/2005/10/15/257/20051014140134.21-aventurinehj.jpg');">
+                                  <div class="card-img-overlay">
+                                      <div style="text-align:center; margin-top:50px">
+                                        <h3 class="card-title"><b>반려동물</b></h3>
+                                        <a class="card-title">______</a>
+                                        <center><p class="card-title">반려동물과 함께 살 수 있는 방<br>찾아보기</p><center>
+                                    </div>
+                                </div>
+                            </div>    
+                          </div> 
+                        </div>  
+                </div>
+                <div class="thumb col">
+                        <div class="tbumblist card card-inverse" style="border:0">
+                          <!--<img class="card-img" src="" alt="Card image"> -->
+                          <div class="parent">
+                              <div class="card-img thumb child" onClick='cardclick2(); return false' style="background-image: url('https://www.realestate.com.au/blog/wp-content/uploads/2015/03/Air-conditioned-lounge-room_550x350.jpg');">
+                                  <div class="card-img-overlay">
+                                      <div style="text-align:center; margin-top:50px">
+                                        <h3 class="card-title"><b>에어컨</b></h3>
+                                        <a class="card-title">______</a>
+                                        <center><p class="card-title">시원한 에어컨 있는 방<br>찾아보기</p></center>
+                                    </div>
+                                </div>
+                            </div>    
+                          </div> 
+                        </div>  
+                </div>
+                <div class="thumb col">
+                        <div class="tbumblist card card-inverse" style="border:0">
+                          <!--<img class="card-img" src="" alt="Card image"> -->
+                          <div class="parent">
+                              <div class="card-img thumb child" onClick='cardclick3(); return false' style="background-image: url('http://www.listentolena.com/wp-content/uploads/2012/01/laundry-room1-1024x727.jpg');">
+                                  <div class="card-img-overlay">
+                                      <div style="text-align:center; margin-top:50px">
+                                        <h3 class="card-title"><b>세탁기</b></h3>
+                                        <a class="card-title">______</a>
+                                        <center><p class="card-title">깨끗하게 빨래할 수 있는 방 <br>확인하기</p></center>
+                                    </div>
+                                </div>
+                            </div>    
+                          </div> 
+                        </div>  
+                </div>
+            </div>
+            <div class="row" style="width:100%">
+                <div class="thumb col">
+                        <div class="tbumblist card card-inverse" style="border:0">
+                          <!--<img class="card-img" src="" alt="Card image"> -->
+                          <div class="parent">
+                              <div class="card-img thumb child" onClick='cardclick4(); return false' style="background-image: url('http://cfile23.uf.tistory.com/image/2327EF37541672B42C40B5');">
+                                  <div class="card-img-overlay">
+                                      <div style="text-align:center; margin-top:50px">
+                                        <h3 class="card-title"><b>주차가능</b></h3>
+                                        <a class="card-title">______</a>
+                                        <center><p class="card-title">주차 공간이 확보된 방<br>찾아보기</p></center>
+                                    </div>
+                                </div>
+                            </div>    
+                          </div> 
+                        </div>  
+                </div>
+                <div class="thumb col">
+                        <div class="tbumblist card card-inverse" style="border:0">
+                          <!--<img class="card-img" src="" alt="Card image"> -->
+                          <div class="parent">
+                              <div class="card-img thumb child" onClick='cardclick5(); return false' style="background-image: url('http://www.cgarchitect.com/content/portfolioitems/2012/09/60381/Sala_de_TV_-_Monica_Romero_2_medium.jpg');">
+                                  <div class="card-img-overlay">
+                                      <div style="text-align:center; margin-top:50px">
+                                        <h3 class="card-title"><b>TV</b></h3>
+                                        <a class="card-title">______</a>
+                                        <center><p class="card-title">텔레비전이 포함된 방<br>찾아보기</p><center>
+                                    </div>
+                                </div>
+                            </div>    
+                          </div> 
+                        </div>  
+                </div>
+                <div class="thumb col">
+                        <div class="tbumblist card card-inverse" style="border:0">
+                          <!--<img class="card-img" src="" alt="Card image"> -->
+                          <div class="parent">
+                              <div class="card-img thumb child" onClick='cardclick6(); return false' style="background-image: url('http://cfile4.uf.tistory.com/image/190E00254BA88F361558C9');">
+                                  <div class="card-img-overlay">
+                                      <div style="text-align:center; margin-top:50px">
+                                        <h3 class="card-title"><b>관리비</b></h3>
+                                        <a class="card-title">______</a>
+                                        <center><p class="card-title">관리비가 없는 값싼 방<br>찾아보기</p></center>
+                                    </div>
+                                </div>
+                            </div>    
+                          </div> 
+                        </div>  
+                </div>
+            </div>
+            
+            </div>
+        </div>
+
+        <div style="height:220px; background-color:#e57610; margin-top:30px;">
+            <div class="container mx-auto row" style="padding-top:30px;">
+               <div class="col" style="margin-left:20px">
+                   <%= image_tag "main.png", width: 200, height: 165 %>
+               </div>
+               
+               <div class="col" style="float:right">
+                   <h4 style="color:white;"><b>동국대학교 정보통신공학과</b></h4>
+                   <br>
+                   <p id="homeTag">제작자: 이준현 조현욱
+                   <br><br>주소: 서울특별시 중구 필동3가 동국대학교 신공학관
+                   <br><br>전화: 010-5669-2338
+                   <br><br>메일: wkickw@naver.com</p>
+               </div>
+
+            </div>   
+        </div>
+        
+        
+        
+<div class="modal fade" id="firstCard">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><strong>반려동물</strong></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <% @permit_pet.each.with_index(1) do |pet,index|%>
+          <a href='/houses/<%=pet.house_id%>'><%=index%>.<%= pet.house.title %></a><br>
+        <% end %>
+        <%= will_paginate @permit_pet, renderer: BootstrapPagination::Rails %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="secondCard">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><strong>에어컨</strong></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <% @has_aircon.each.with_index(1) do |aircon,index|%>
+          <a href='/houses/<%=aircon.house_id%>'><%=index%>.<%= aircon.house.title %></a><br>
+        <% end %>
+        <%= will_paginate @has_aircon, renderer: BootstrapPagination::Rails %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="thirdCard">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><strong>세탁기</strong></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <% @has_laundary.each.with_index(1) do |laundary,index|%>
+          <a href='/houses/<%=laundary.house_id%>'><%=index%>.<%= laundary.house.title %></a><br>
+        <% end %>
+        <%= will_paginate @has_laundary, renderer: BootstrapPagination::Rails %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="forthCard">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><strong>주차가능</strong></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <% @permit_parking.each.with_index(1) do |parking,index|%>
+          <a href='/houses/<%=parking.house_id%>'><%=index%>.<%= parking.house.title %></a><br>
+        <% end %>
+        <%= will_paginate @permit_parking, renderer: BootstrapPagination::Rails %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="fifthCard">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><strong>Television</strong></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <% @has_tv.each.with_index(1) do |tv,index|%>
+          <a href='/houses/<%=tv.house_id%>'><%=index%>.<%= tv.house.title %></a><br>
+        <% end %>
+        <%= will_paginate @has_tv, renderer: BootstrapPagination::Rails %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="sixthCard">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><strong>관리비</strong></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <% @no_managebool.each.with_index(1) do |managebool,index|%>
+          <a href='/houses/<%=managebool.house_id%>'><%=index%>.<%= managebool.house.title %></a><br>
+        <% end %>
+        <%= will_paginate @no_managebool, renderer: BootstrapPagination::Rails %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="totalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">전체 방 목록</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <% @houses.each.with_index(1) do |house,index|%>
+          <a href='/houses/<%=house.id%>'><%=index%>.<%= house.title %></a><br>
+        <% end %>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+        
+     
+        
+
+
+
+
+
+
+

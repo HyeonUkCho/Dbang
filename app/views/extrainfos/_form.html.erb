@@ -1,0 +1,65 @@
+<%= form_for(@extrainfo) do |f| %>
+  <% if @extrainfo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@extrainfo.errors.count, "error") %> prohibited this extrainfo from being saved:</h2>
+
+      <ul>
+      <% @extrainfo.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :house_id %><br>
+    <%= f.number_field :house_id %>
+  </div>
+  <div class="field">
+    <%= f.label :managebool %><br>
+    <%= f.text_field :managebool %>
+  </div>
+  <div class="field">
+    <%= f.label :managefee %><br>
+    <%= f.number_field :managefee %>
+  </div>
+  <div class="field">
+    <%= f.label :internet %><br>
+    <%= f.text_field :internet %>
+  </div>
+  <div class="field">
+    <%= f.label :television %><br>
+    <%= f.text_field :television %>
+  </div>
+  <div class="field">
+    <%= f.label :cleanfee %><br>
+    <%= f.text_field :cleanfee %>
+  </div>
+  <div class="field">
+    <%= f.label :waterfee %><br>
+    <%= f.text_field :waterfee %>
+  </div>
+  <div class="field">
+    <%= f.label :parking %><br>
+    <%= f.text_field :parking %>
+  </div>
+  <div class="field">
+    <%= f.label :enterdate %><br>
+    <%= f.date_select :enterdate %>
+  </div>
+  <div class="field">
+    <%= f.label :aircon %><br>
+    <%= f.text_field :aircon %>
+  </div>
+  <div class="field">
+    <%= f.label :laundary %><br>
+    <%= f.text_field :laundary %>
+  </div>
+  <div class="field">
+    <%= f.label :pet %><br>
+    <%= f.text_field :pet %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

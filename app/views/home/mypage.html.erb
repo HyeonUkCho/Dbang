@@ -1,0 +1,111 @@
+<style>
+
+    html, body {
+    
+    margin: 0;
+    padding: 0;
+    }
+    .mycol{
+         padding:20px;   
+         
+    }
+    .row{
+        margin:0px;
+    }
+    .btnC{
+        width:300px;
+        height:45px;
+    }
+    #Atag{
+        color: orange;
+    }
+    #homeTag{
+        color: white;
+    }
+</style>
+<body>
+    <%= render '/home/form_nav' %>
+     <hr style="margin-top:0px">
+    
+    <div class="contents" style="margin-top:15px">
+        <div class="container mx-auto col-md-8" style="margin:30px">
+            <div class="infoRoom">  
+            <div class="container">
+                <h2>| 내 계정</h2><br>
+
+                <div class="d-flex justify-content-end row  mt-3">
+                  <div class="mr-auto p-2">개인정보</div>
+                  <div class="p-2"><a id="Atag" href="#">회원탈퇴</a></div>
+                </div>
+                <hr style="margin:0px; border-style:bold; color:black; background-color:black;">
+                    <div class="row">
+                        <div class="col-md-2 mycol" style="background-color:#ededed">
+                            본인 성명
+                        </div>
+                        <div class="col-md-7 mycol">
+                            <input class="col-md-8" type="text" name="firstname" id="sample6_postcode" placeholder="이준현">
+                        </div>
+                    </div>
+                    <hr style="margin:0px">
+                    <div class="row">
+                        <div class="col-md-2 mycol" style="background-color:#ededed">
+                            이메일 주소
+                        </div>
+                        <div class="col-md-7 mycol">
+                            <p>wkickw@naver.com</p>
+                        </div>
+                    </div>
+                    <hr style="margin:0px">
+                    <div class="row">
+                        
+                        <div class="col-md-2 mycol" style="background-color:#ededed">
+                            휴대폰 번호
+                        </div>
+                        <div class="col-md-7 mycol">
+                            <input class="col-md-8" type="text" name="firstname" id="sample6_postcode" placeholder="010-5669-2338">
+                        </div>
+                    </div>
+                    <hr style="margin:0px">
+                    <div class="row">
+                        <div class="col-md-2 mycol" style="background-color:#ededed">
+                            방 확인하기
+                        </div>
+                        <div class="col-md-7 mycol">
+                            <a id="Atag" href="#">1. 경기도 고양시 일산동구 장항동</a><br>
+                            <a id="Atag" href="#">2. 경기도 하남시 위례신도시 학암동</a><br>
+                            <a id="Atag" href="#">3. 서울특별시 필동3 동국대학교</a><br>
+                            
+                        </div>
+                    </div>
+                    <hr style="margin:0px; margin-bottom:40px">
+                    <div class="row mx-auto">
+                        <div class="mx-auto">
+                            <button type="button" class="btn btn-secondary btnC">취소</button>
+                            <button type="button" class="btn btn-warning btnC">확인</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+    
+     <div style="height:220px; background-color:#e57610; margin-top:60px;">
+            <div class="container mx-auto row" style="padding-top:30px;">
+               <div class="col" style="margin-left:20px">
+                   <%= image_tag "main.png", width: 200, height: 165 %>
+               </div>
+               
+               <div class="col" style="float:right">
+                   <h4 style="color:white;"><b>동국대학교 정보통신공학과</b></h4>
+                   <br>
+                   <p id="homeTag">제작자: 이준현 조현욱
+                   <br><br>주소: 서울특별시 중구 필동3가 동국대학교 신공학관
+                   <br><br>전화: 010-5669-2338
+                   <br><br>메일: wkickw@naver.com</p>
+               </div>
+
+            </div>   
+        </div>
+</body>
+
+

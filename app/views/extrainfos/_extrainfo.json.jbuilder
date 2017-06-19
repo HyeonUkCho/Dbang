@@ -1,0 +1,2 @@
+json.extract! extrainfo, :id, :house_id, :managebool, :managefee, :internet, :television, :cleanfee, :waterfee, :parking, :enterdate, :aircon, :laundary, :pet, :created_at, :updated_at
+json.url extrainfo_url(extrainfo, format: :json)

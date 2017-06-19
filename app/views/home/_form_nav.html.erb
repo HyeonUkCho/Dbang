@@ -1,0 +1,149 @@
+<style>
+    #Atag{
+        color: orange;
+    }
+</style>
+<script>
+        function activateTotalList(){
+                $('#totalModal').modal('show')
+            }
+</script>
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded" style="background-color: white; padding:0;">
+ 
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+      
+    <nav class="navbar navbar-light bg-faded" style="background-color: white;" >
+        <div class="container" style="width:600px">
+            <div class="d-flex flex-row">
+              <div class="p-2">
+                  <%= link_to '/' do %>
+                    <%= image_tag "home.jpg", width: 75, height: 75 %>
+                  <% end %>    
+              </div>
+              <div class="p-2">
+                    <div class="container" style="padding-left:0;">
+                        <form action='/map_page' method='GET'>
+                            <div class="input-group mt-4 col-md-5">
+                                <input type="text" class="form-control" name="search" placeholder=" 지역명을 입력해보세요.">
+                                <span class="input-group-btn">
+                                <button class="btn  btn-warning" type="submit" onclick = 'location.href = "/map_page"'>방 검색</button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+              </div>
+            </div>
+            
+        </div>
+    </nav>
+     
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#" onClick='activateTotalList(); return false'><b>전체 방 목록 </b><span class="sr-only">(current)</span></a>
+                <!-- <a class="nav-link" href="/houses"><b>전체 방 목록 </b><span class="sr-only">(current)</span></a> -->
+
+            </li>
+                
+            <li class="nav-item">
+                <a class="nav-link" href="/houses/new"><b>방등록</b></a>
+            </li>
+           <% if logged_in? %>
+              <div class="nav-link" style="padding-right:50px">
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <%= current_user.name %> <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><%= link_to "Profile", current_user %></li>
+                      <li>
+                        <%= link_to "Log out", '/logout' , method: :delete %>
+                      </li>
+                    </ul>
+                  </li>
+              </div>
+        <% else %>
+          <li class="nav-item">
+            <a class="nav-link myModal" href='#' onClick='activateModel(); return false'><b>회원가입 및 로그인</b></a>
+          </li>
+        <% end %>
+        </ul>
+    </div>
+</nav>
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                
+              <div class="modal-header">
+                <div class="mx-auto" style="mt-3;">
+                  <h3 class="modal-title" id="exampleModalLabel"><b>로그인</b></h3>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              
+              <div class="modal-body cotainer mt-3">
+                  <%=form_for(:session, url: login_path) do |f| %>
+                <div class="row" style="text-align: center">
+                    <div class="col-md-9 push-md-3">
+                     <!-- <input type="text" class="form-control" id="lg_email" aria-describedby="basic-addon3">-->
+                        <%= f.email_field :email, class: 'form-control'%>
+                    </div>
+                    <div class="col-md-3 pull-md-9">
+                        <%= f.label :email %>
+                    </div>
+                </div>
+                <div class="row mt-2" style="text-align: center">
+                    <div class="col-md-9 push-md-3">
+                      <!--<input type="text" class="form-control" id="lg_pwd" aria-describedby="basic-addon3">-->
+                        <%= f.password_field :password, class: 'form-control' %>
+                    </div>
+                    <div class="col-md-3 pull-md-9">
+                        <%= f.label :password %>
+                    </div>
+                </div>
+               <!--<button type="button" class="mt-4 mb-4 btn btn-primary btn-lg btn-block"> 로그인 </button>-->
+                        <%= f.submit "Log in", class: "mt-4 mb-4 btn btn-warning btn-lg btn-block" %>
+                    <% end %>
+
+               <div class="container">
+                    <button type="button" class="btn btn-secondary" style="margin-left:160px;" onclick = 'location.href = "/users/new"'>일반 회원 가입</button>
+                    
+                
+               </div>               
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        
+        
+        
+<!-- Modal -->
+<div class="modal fade" id="totalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">전체 방 목록</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <% @houses.each.with_index(1) do |house,index|%>
+          <a href='/houses/<%=house.id%>'><%=index%>.<%= house.title %></a><br>
+        <% end %>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

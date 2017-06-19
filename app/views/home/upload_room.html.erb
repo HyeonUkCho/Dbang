@@ -1,0 +1,426 @@
+<head>
+<style>
+    html, body {
+    /*height: 300%;*/
+    margin: 0;
+    padding: 0;
+    }
+    .Roomtitle{
+        background-color:#ededed;
+    }
+    .RoomBox{
+        height: 90%;
+    }
+    .KBox{
+        padding: 10px;        }
+    .CBox{
+        padding: 10px;        }
+    .td{
+        border-bottom: 1px solid #ddd;
+    }
+    p.one {
+        padding: 15px;
+        border-color: red;
+        border-width: 1px;
+        border-style: ridge;
+    }
+    #myCheck{
+        width:17px;
+        height:17px;
+        margin:10px;
+    }
+
+</style>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+<script type="text/javascript">
+function execDaumPostcode() {
+ new daum.Postcode({
+  oncomplete: function(data) {
+                var fullAddr = ''; // 최종 주소 변수
+                var extraAddr = ''; // 조합형 주소 변수
+
+                // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    fullAddr = data.roadAddress;
+
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    fullAddr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+                if(data.userSelectedType === 'R'){
+                    //법정동명이 있을 경우 추가한다.
+                    if(data.bname !== ''){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있을 경우 추가한다.
+                    if(data.buildingName !== ''){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample6_postcode').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('sample6_address').value = fullAddr;
+
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById('sample6_address2').focus();
+   
+  }
+ }).open();
+}
+   $( document.body ).on( 'click', '.dropdown-menu li', function( event ) {
+
+      var $target = $( event.currentTarget );
+
+      $target.closest( '.btn-group' )
+         .find( '[data-bind="label"]' ).text( $target.text() )
+            .end()
+         .children( '.dropdown-toggle' ).dropdown( 'toggle' );
+
+      return false;
+
+   });
+</script>
+
+</head>
+<body>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded" style="background-color: white;padding:0;">
+      
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <nav class="navbar navbar-light bg-faded" style="background-color: white" >
+        <div class="container" style="width:600px">
+          <div class="row">
+            <div class="col col-md-1">
+              <%= link_to '/' do %>
+                  <%= image_tag "home.jpg", width: 75, height: 75 %>
+              <% end %>              
+            </div>  
+            <div class="col col-md-8 offset-md-1 mt-3">
+               <div class="input-group">
+                    <input type="text" class="form-control" placeholder=" 지역명 혹은 방 번호를 입력해보세요">
+                      <span class="input-group-btn">
+                        <button class="btn btn-warning" type="button">방 검색</button>
+                      </span>
+              </div>
+            </div>  
+          </div>  
+        </div>
+      </nav>
+     
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          
+          <li class="nav-item">
+            <a class="nav-link" href="#"><b>관심목록 </b><span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><b>방등록</b></a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="/login"><b>회원가입 및 로그인</b></a>  
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <hr style="margin-top:0px">
+    
+    <div class="contents" style="margin-top:15px">
+        <div class="container mx-auto col-md-8" style="margin:30px">
+            <div class="infoRoom">  
+                <h2>| 방 등록하기</h2><br>
+                <div class="Roomtitle" style="background-color:#ededed; padding:20px;">
+                    - 등록한 방 정보는 직거래 매물로 등록되며, 최대 30일까지 노출 후 거래완료 상태로 전환됩니다.<br>
+                    - 방 등록이 완료된 매물은 방 정보와 회원정보(연락처, 메일 등)와 함께 노출됩니다.<br>
+                    - 거래완료된 매물을 완료처리하지 않은 경우 허위매물 등록으로 이용이 제한될 수 있습니다.<br>
+                    - 매물 관리규정에 위배 되거나 신고된 매물은 비공개 또는 삭제처리되며 경고 및 제재조치를 받을 수 있습니다.<br>
+                    - 부동산 중개사는 직거래 매물을 등록할 수 없으며, 공인중개사회원 가입 후 이용하시기 바랍니다.<br>
+                </div>
+            </div>
+            
+            
+            <div class="LocationRoom" style="margin-top:40px; height:250px;">
+                <h2>| 위치등록</h2><br>
+                <hr style="border: solid 1px black; margin:0;">
+                <div class="row RoomBox container">
+                    <div class="col-md-2 Roomtitle d-flex align-items-center">
+                        주소
+                    </div>
+                    <div class="col-md-10" style=" margin-top:10px;">
+                        <a>도로명, 건물명, 지번에 대해 통합검색이 가능합니다.</a>
+                        <div class="row container" style=" margin:0px; padding:0; margin-top:15px">
+                            <input class="col-md-8" type="text" name="firstname" id="sample6_postcode">
+                            <button class="greenWbtn btn btn-outline-info" type="submit" style="margin-left:13px" onclick="execDaumPostcode();return false;" >주소 검색</button>
+                        </div>
+                        <input class="col-md-12" id="sample6_address" type="text" name="firstname" placeholder="도로명: 대전광역시 동구 판교1길 3" style=" margin-top:15px; height:50px">
+                        <input class="col-md-12" id="sample6_address2" type="text" name="firstname" placeholder="상세 주소를 입력하세요" style=" margin-top:15px; height:30px">
+                        <div style="color:red; margin-top:10px"> 주소를 정확히 입력해주세요.</div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="KindRoom" style="margin-top:100px; height:250px;">
+                <h2>| 기본정보</h2><br>
+                <hr style="border: solid 1px black; margin:0;">
+                <table>
+                    <tbody>
+                        <tr class="row container">
+                            <td class="KBox container col-md-2 Roomtitle d-flex align-items-center">
+                                방 종류
+                            </td>
+                            <td class="KBox container col-md-10">
+                                <div class="btn-group btn-input clearfix" role="group">
+                                 <button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+                                   <span data-bind="label">방 종류 선택</span>&nbsp;<span class="caret"></span>
+                                 </button>
+                                 <ul class="dropdown-menu" role="menu">
+                                   <li><a class="dropdown-item" href="#">원룸</a></li>
+                                   <li><a class="dropdown-item" href="#">투룸</a></li>
+                                 </ul>
+                               </div>
+                            </td>
+                        </tr> 
+                        <hr style="height:1px; margin:0;">
+                        <tr class="row container">
+                            <td class="KBox container col-md-2 Roomtitle d-flex align-items-center">
+                                거래 종류
+                            </td>
+                            <td class="KBox container col-md-10">
+                               
+                               <button type="button" class="btn btn-secondary">전세 추가</button>
+                               <button type="button" class="btn btn-secondary">월세 추가</button>
+                               <button type="button" class="btn btn-secondary">무보증 추가</button>
+
+                            </td>
+                        </tr>   
+                        <hr style="height:1px; margin:0;">
+                        <tr class="row container">
+                            <td class="KBox container col-md-2 Roomtitle d-flex align-items-center">
+                                건물 층수
+                            </td>
+                            <td class="KBox container col-md-10 row" style="margin:0">
+                                <div class="col-2" style="padding:0">
+                                <div> 건물 층수</div>
+                                <div class="btn-group" role="group">
+                                    <div class="btn-group btn-input clearfix" role="group">
+                                     <button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+                                       <span data-bind="label">건물 층수 선택</span>&nbsp;<span class="caret"></span>
+                                     </button>
+                                     <ul class="dropdown-menu" role="menu">
+                                       <li><a class="dropdown-item" href="#">1층</a></li>
+                                       <li><a class="dropdown-item" href="#">2층</a></li>
+                                       <li><a class="dropdown-item" href="#">3층</a></li>
+                                       <li><a class="dropdown-item" href="#">4층</a></li>
+                                       <li><a class="dropdown-item" href="#">5층</a></li>
+                                       <li><a class="dropdown-item" href="#">6층</a></li>
+                                       <li><a class="dropdown-item" href="#">7층</a></li>
+                                     </ul>
+                                   </div>
+                                  </div>
+                              </div>
+                              <div class="col-3" style="padding:0; margin-left:40px">
+                              <div> 해당 층수</div>
+                              
+                              <div class="btn-group" role="group">
+                                    <div class="btn-group btn-input clearfix" role="group">
+                                     <button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+                                       <span data-bind="label">건물 층수 선택</span>&nbsp;<span class="caret"></span>
+                                     </button>
+                                     <ul class="dropdown-menu" role="menu">
+                                       <li><a class="dropdown-item" href="#">1층</a></li>
+                                       <li><a class="dropdown-item" href="#">2층</a></li>
+                                       <li><a class="dropdown-item" href="#">3층</a></li>
+                                       <li><a class="dropdown-item" href="#">4층</a></li>
+                                       <li><a class="dropdown-item" href="#">5층</a></li>
+                                       <li><a class="dropdown-item" href="#">6층</a></li>
+                                       <li><a class="dropdown-item" href="#">7층</a></li>
+                                     </ul>
+                                   </div>
+                                  </div>
+                             </div>
+                            </td>
+                        </tr>   
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="checkRoom" style="margin-top:70px; height:250px;">
+                <h2>| 추가정보</h2><br>
+                <hr style="border: solid 1px black; margin:0;">
+                <div class="row container" >
+                    <div class="col-md-2 Roomtitle d-flex align-items-center CBox" >
+                        관리비
+                    </div>
+                    <div class="row col-md-10">
+                        <div class="col-md-12 d-flex flex-row container d-flex align-items-center CBox">
+                            <input class="p-2" type="checkbox" id="myCheck"> 있음
+                            <input type="num" class="p-2 mx-3" style="width:100px;"> 만원
+                            <input class="p-2" type="checkbox" id="myCheck"> 없음
+                        </div>
+                        <div class="col-md-12 d-flex flex-row container d-flex align-items-center CBox">
+                            관리포함 항목 선택: 
+                            <input class="p-2" type="checkbox" id="myCheck"> 인터넷
+                            <input class="p-2" type="checkbox" id="myCheck"> 유선 TV
+                            <input class="p-2" type="checkbox" id="myCheck"> 청소비
+                            <input class="p-2" type="checkbox" id="myCheck"> 수도세
+                            <input class="p-2" type="checkbox" id="myCheck"> 도시가스
+                            <input class="p-2" type="checkbox" id="myCheck"> 전기세
+                        </div>
+                    </div>
+                </div>   
+                <hr style="height:1px; margin:0;">
+                <div class="row container" >
+                    <div class="col-md-2 Roomtitle d-flex align-items-center CBox" >
+                        주차 여부
+                    </div>
+                        <div class="col-md-10 d-flex flex-row container d-flex align-items-center CBox">
+                            <input class="p-2" type="checkbox" id="myCheck"> 가능
+                            <input type="num" class="p-2 mx-3" style="width:100px;"> 만원
+                            <input class="p-2" type="checkbox" id="myCheck"> 불가능
+                        </div>
+                </div> 
+                <hr style="height:1px; margin:0;">
+                <div class="row container">
+                    <div class="col-md-2 Roomtitle d-flex align-items-center CBox">
+                        입주 가능일
+                    </div>
+                    <div class="col-md-10  CBox">
+                         <div class="btn-group col-2" role="group">
+                            <div class="btn-group btn-input clearfix" role="group">
+                                <button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+                                    <span data-bind="label">해당 연도</span>&nbsp;<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a class="dropdown-item" href="#">2016</a></li>
+                                    <li><a class="dropdown-item" href="#">2017</a></li>
+                                    <li><a class="dropdown-item" href="#">2018</a></li>
+                                    <li><a class="dropdown-item" href="#">2019</a></li>
+                                </ul>
+                            </div>
+                          </div>
+                         년
+                         <div class="btn-group col-2" role="group">
+                            <div class="btn-group btn-input clearfix" role="group">
+                                <button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+                                    <span data-bind="label">해당 월</span>&nbsp;<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a class="dropdown-item" href="#">1</a></li>
+                                    <li><a class="dropdown-item" href="#">2</a></li>
+                                    <li><a class="dropdown-item" href="#">3</a></li>
+                                    <li><a class="dropdown-item" href="#">4</a></li>
+                                    <li><a class="dropdown-item" href="#">5</a></li>
+                                    <li><a class="dropdown-item" href="#">6</a></li>
+                                    <li><a class="dropdown-item" href="#">7</a></li>
+                                    <li><a class="dropdown-item" href="#">8</a></li>
+                                    <li><a class="dropdown-item" href="#">9</a></li>
+                                    <li><a class="dropdown-item" href="#">10</a></li>
+                                    <li><a class="dropdown-item" href="#">11</a></li>
+                                    <li><a class="dropdown-item" href="#">12</a></li>
+                                </ul>
+                            </div>
+                          </div>
+                         월
+                         <div class="btn-group col-2" role="group">
+                            <div class="btn-group btn-input clearfix" role="group">
+                                <button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+                                    <span data-bind="label">해당 일</span>&nbsp;<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a class="dropdown-item" href="#">1</a></li>
+                                    <li><a class="dropdown-item" href="#">2</a></li>
+                                    <li><a class="dropdown-item" href="#">3</a></li>
+                                    <li><a class="dropdown-item" href="#">4</a></li>
+                                </ul>
+                            </div>
+                          </div>
+                         일
+                    </div>
+                </div>
+               
+                <hr style="height:1px; margin:0;">
+                <div class="row container">
+                    <div class="col-md-2 Roomtitle d-flex align-items-center  CBox">
+                        기타 정보
+                    </div>
+                    <div class="col-md-10 CBox">
+                         <div class="d-flex flex-row container d-flex align-items-center CBox">
+                            <input class="p-2" type="checkbox" id="myCheck"> 에어컨
+                            <input class="p-2" type="checkbox" id="myCheck"> 세탁기
+                            <input class="p-2" type="checkbox" id="myCheck"> TV
+                            <input class="p-2" type="checkbox" id="myCheck"> 반려동물
+                            <input class="p-2" type="checkbox" id="myCheck"> 난방
+                            <input class="p-2" type="checkbox" id="myCheck"> 옷장
+                        </div>
+                    </div>
+                </div>
+             </div> 
+             
+            <div class="LocationRoom" style="margin-top:180px; height:250px;">
+                <h2>| 상세 정보</h2><br>
+                <hr style="border: solid 1px black; margin:0;">
+                <div class="row container">
+                    <div class="col-md-2 Roomtitle d-flex align-items-center">
+                        방 제목
+                    </div>
+                    <div class="col-md-10" style=" margin-top:10px;">
+                        <input class="col-md-12" type="text" name="firstname" placeholder="예) 신논현역 5분거리 살기 좋은 방~" style="height:50px">
+                    </div>
+                    
+                </div>
+                <hr style="height:1px; margin:0;">
+                <div class="row container">
+                    <div class="col-md-2 Roomtitle d-flex align-items-center">
+                        상세 설명
+                    </div>
+                    <div class="col-md-10" style=" margin-top:10px;">
+                        <textarea class="col-md-12" type="text" name="firstname" style=" margin-top:15px; height:250px">
+                        </textarea>
+                    </div>
+                    
+                </div>
+                
+            </div>
+            
+             <div class="LocationRoom" style="margin-top:225px; height:250px;">
+                <h2>| 사진 등록</h2><br>
+                <hr style="border: solid 1px black; margin:0;">
+                <div class="row container" style="padding-top:15px; margin:0px; ">
+                    <p class="one" style='width:100%;'>
+                    -사진은 가로로 찍은 사진을 권장합니다. (가로 사이즈 최소 800픽셀)<br>
+                    - 사진 용량은 사진 1장당 10MB까지 등록이 가능합니다.<br>
+                    - 사진은 최소 3장 이상 등록해야하며, 최대 15장까지 권장합니다. 그 이상 등록할 경우 업로드 시간이 다소 지연될 수 있습니다.<br>
+                    </p>
+                </div>
+                <div class="row container" style="border-color:red">
+                    <center><button type="button" class="btn btn-primary btn-lg" style="width:200px">등 록</button></center>
+                </div/>
+                
+            </div>
+            <button type="button" class="btn btn-link">image</button>
+               <div class="bottom col mx-auto d-flex align-items-center" style="height:100px; margin-top:100px">
+                   <div class="row">
+                           
+                   </div>    
+                   <div class="row mx-auto">
+                           <button type="button" class="btn btn-primary btn-lg" style="width:200px">등 록</button>
+                           <button type="button" class="btn btn-secondary btn-lg" style="width:200px">취 소</button>
+                   </div>    
+                         
+               </div>
+            
+        </div> 
+            
+        </div>
+    </div>
+    
+</body>

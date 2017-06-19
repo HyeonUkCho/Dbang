@@ -1,0 +1,1 @@
+json.partial! "normalinfos/normalinfo", normalinfo: @normalinfo

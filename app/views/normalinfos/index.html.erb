@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Normalinfos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>House</th>
+      <th>Housetype</th>
+      <th>Dealtype</th>
+      <th>Monthlyfee</th>
+      <th>Tradefee</th>
+      <th>Totalfloor</th>
+      <th>Myfloor</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @normalinfos.each do |normalinfo| %>
+      <tr>
+        <td><%= normalinfo.house_id %></td>
+        <td><%= normalinfo.housetype %></td>
+        <td><%= normalinfo.dealtype %></td>
+        <td><%= normalinfo.monthlyfee %></td>
+        <td><%= normalinfo.tradefee %></td>
+        <td><%= normalinfo.totalfloor %></td>
+        <td><%= normalinfo.myfloor %></td>
+        <td><%= link_to 'Show', normalinfo %></td>
+        <td><%= link_to 'Edit', edit_normalinfo_path(normalinfo) %></td>
+        <td><%= link_to 'Destroy', normalinfo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Normalinfo', new_normalinfo_path %>

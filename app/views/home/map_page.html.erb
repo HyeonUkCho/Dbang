@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" type="text/css" href="font-awesome.css">
+    
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+      height:100%;
+      width:100%;
+      margin: 0;
+      padding: 0;
+      }
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 110%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .text-muted, .card-text{
+        margin-bottom: 0.38rem;
+      }
+      .card-img-left {
+          border-bottom-left-radius: calc(.25rem - 1px);
+          border-top-left-radius: calc(.25rem - 1px);
+          float: left;
+          margin-bottom: -1.25em;
+          margin-right: 0.5rem;
+          width: 10rem; 
+          height: 6rem;
+        }
+      .card {
+        margin-bottom: 0.5rem;
+      }
+      
+      .pagination{
+         float: right;
+        position: relative;
+        left: -30%;;
+      }
+      
+    </style>
+    <script>
+    function activateModel(){
+                $('#myModal').modal('show')
+            }
+    function activateTotalList(){
+                $('#totalModal').modal('show')
+    }
+    </script>
+</head>
+<body>
+    
+    <%= render '/home/form_nav' %>
+ 
+      
+        <div class="d-flex justify-content-start" style=height:80%>
+            <div class="col-md-9 p-2" id="map"></div>
+
+            <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=3a59f87b845f1a747796e93d17802842&libraries=services"></script>
+            <script>
+
+              var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+                  mapOption = { 
+                      center: new daum.maps.LatLng(37.563391, 126.975247), // 지도의 중심좌표
+                      //37.561753, 126.991870
+                      level: 4 // 지도의 확대 레벨
+                  };
+              
+              var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+            
+              // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+              var mapTypeControl = new daum.maps.MapTypeControl();
+                
+                // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+                // daum.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+              map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPLEFT);
+                
+                // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+              var zoomControl = new daum.maps.ZoomControl();
+              map.addControl(zoomControl, daum.maps.ControlPosition.LEFT);
+
+              function setCenter() {            
+                  // 이동할 위도 경도 위치를 생성합니다 
+                  var moveLatLon = new daum.maps.LatLng(37.563391, 126.975247);
+                  
+                  // 지도 중심을 이동 시킵니다
+                  map.setCenter(moveLatLon);
+              }
+              var jbAry = new Array();
+              jbAry[39] = ' + <%= @array.first %> + '
+              jbAry[13] = ' + <%= @array.second %> + '
+              jbAry[23] = ' + <%= @array.third %> + '
+              jbAry[323] = ' + <%= @array.fourth %> + '
+              
+              var roomName = new Array();
+              roomName[0] = ' <%= @arrTitle.first %> '
+              roomName[1] = ' + <%= @arrTitle.second %> + '
+              roomName[2] = ' + <%= @arrTitle.third %> + '
+              roomName[3] = ' + <%= @arrTitle.fourth %> + '
+              
+              
+              function findlocation(params) {
+  
+              var geocoder = new daum.maps.services.Geocoder();
+              
+                  // 주소로 좌표를 검색합니다
+                geocoder.addr2coord(params, function(status, result) {
+                    
+                    // 정상적으로 검색이 완료됐으면 
+                     if (status === daum.maps.services.Status.OK) {
+                        
+                        var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
+                        
+                        // 결과값으로 받은 위치를 마커로 표시합니다
+                        var marker = new daum.maps.Marker({
+                            map: map,
+                            position: coords
+                        });
+                
+                        // 인포윈도우로 장소에 대한 설명을 표시합니다
+                        var infowindow = new daum.maps.InfoWindow({
+                            //content: '<div style="width:150px;text-align:center;padding:6px 0;">'+roomName[0]+'</div>'
+                            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+params+'</div>'
+
+                        });
+                        infowindow.open(map, marker);
+                
+                        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                        //map.setCenter(coords);
+                        map.panTo(coords);
+                    } 
+                });  
+              }
+            
+            </script>
+            <div class="mr-auto d-flex flex-column" style="width:100%; height:100%">
+              <div class="p-2" style="background-color:#f29a0c; color:white; width"> > 검색 결과 +500 </div>
+              
+              <!--<#% @houses.each do |house| %>
+                  <#%= house.title %><br>
+                <#%end%>
+              -->
+              
+              <div class="p-2" style="background-color:#f4f4f4; color:black; margin-bottom:0.5rem">이 지역 추천 공인 중개업소 매물</div>
+              <div class="p-2">
+            
+              <% @search_result.each do |h|%>
+              
+                <div class="p-2" style="padding: .2rem .5rem!important;">
+                    <div class="card" style="width: 100%">
+                      <div class="card-block" style="padding:0.5rem;">
+                        <a href='/houses/<%=h.house.id%>'>
+                        <img class="card-img-left" src="<%=  h.house.image_attachments.first.avatar %>"  alt="Card image cap">
+                        <h5 class="card-title"><b><%=h.house.normalinfo.dealtype%></b> <%=h.house.normalinfo.tradefee%>/<%=h.house.normalinfo.monthlyfee%></h5>
+                        <p class="card-text" style="font-size:80%"><%=h.house.address.mainaddress%></p>
+                        <p class="text-muted" style="font-size:70%; float:right;"><%=h.house.normalinfo.housetype%> | <%=h.house.extrainfo.managefee%>만원</p>
+                        </a>
+                        <button type="button" class="btn btn-secondary btn-sm" style="float:left; margin-left:260px;" onclick = "findlocation('<%=h.house.address.mainaddress.to_s%>')">위치</button>
+                      </div>
+                    </div>
+                </div>
+              
+              <%end%>
+              </div>
+              
+              <div class="p-2" style="text-align:center;">
+                <nav aria-label="Page navigation example" style="text-align:center;">
+                   <div class="Flickr">
+                    <%= will_paginate @search_result, renderer: BootstrapPagination::Rails %>
+                   </div>
+                </nav>
+              </div>
+            </div>
+        </div>
+        
+    </body>
+</html>

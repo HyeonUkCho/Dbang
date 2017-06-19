@@ -1,0 +1,23 @@
+<%= image_tag @image_attachment.avatar %>
+<%= form_for(@image_attachment) do |f| %>
+  <% if @image_attachment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@image_attachment.errors.count, "error") %> prohibited this image_attachment from being saved:</h2>
+
+      <ul>
+      <% @image_attachment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="field">
+    <%= f.label :avatar %><br>
+    <%= f.file_field :avatar %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
